@@ -21,15 +21,15 @@ function Home() {
         <h2>What You Can Do</h2>
         <div className="feature-grid">
           <div className="feature-card">
-            <h3>🔍 Explore</h3>
+            <h3>Explore</h3>
             <p>Browse thousands of live events in real-time with search and category filters.</p>
           </div>
           <div className="feature-card">
-            <h3>🎟️ Register</h3>
+            <h3>Register</h3>
             <p>Quickly register for events you want to attend and manage your bookings.</p>
           </div>
           <div className="feature-card">
-            <h3>📅 Track</h3>
+            <h3>Track</h3>
             <p>View your upcoming and completed events in your personal dashboard.</p>
           </div>
         </div>

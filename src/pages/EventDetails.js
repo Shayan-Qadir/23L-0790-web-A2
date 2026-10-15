@@ -7,7 +7,7 @@ function EventDetails() {
   return (
     <div className="page-container">
       <Link to="/events" className="back-link">
-        ← Back to Events
+        &larr; Back to Events
       </Link>
       <div className="page-header">
         <h1>Event Details</h1>
