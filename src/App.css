@@ -743,6 +743,169 @@
   }
 }
 
+/* My Events Page & Tabs */
+.my-events-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-bottom: -2px;
+  transition: all 0.15s ease-in-out;
+}
+
+.tab-btn:hover {
+  color: var(--primary-color);
+}
+
+.tab-btn.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  font-weight: 600;
+}
+
+.registered-events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.registered-event-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.registered-event-image-wrap {
+  width: 140px;
+  height: 90px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #e2e8f0;
+}
+
+.registered-event-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.registered-event-info {
+  flex: 1;
+}
+
+.registered-event-date {
+  font-size: 0.825rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.registered-event-title {
+  font-size: 1.15rem;
+  color: var(--text-main);
+  margin-bottom: 0.35rem;
+}
+
+.registered-event-meta {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.registered-date-text {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-bottom: 0;
+}
+
+.registered-event-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Modal Backdrop & Content */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: var(--surface-color);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: var(--shadow-md);
+}
+
+.modal-content h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-main);
+}
+
+.modal-content p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+@media (max-width: 700px) {
+  .registered-event-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .registered-event-image-wrap {
+    width: 100%;
+    height: 160px;
+  }
+
+  .registered-event-actions {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .registered-event-actions .btn {
+    flex: 1;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .navbar-container {

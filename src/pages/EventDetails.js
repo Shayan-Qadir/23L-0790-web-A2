@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEventDetails, clearSelectedEvent } from '../redux/eventsSlice';
+import { registerForEvent, clearRegistrationStatus } from '../redux/registrationSlice';
 
 function EventDetails() {
   const { id } = useParams();
@@ -11,7 +12,20 @@ function EventDetails() {
   const { selectedEvent: event, detailsLoading: loading, detailsError: error } = useSelector(
     (state) => state.events
   );
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, currentUser } = useSelector((state) => state.auth);
+  const { registrations, error: regError, successMessage } = useSelector(
+    (state) => state.registration
+  );
+
+  // Check if current user is already registered for this event
+  const isAlreadyRegistered = Boolean(
+    currentUser &&
+      registrations.some(
+        (reg) =>
+          reg.userEmail.toLowerCase() === currentUser.email.toLowerCase() &&
+          reg.eventId === id
+      )
+  );
 
   useEffect(() => {
     if (id) {
@@ -20,6 +34,7 @@ function EventDetails() {
 
     return () => {
       dispatch(clearSelectedEvent());
+      dispatch(clearRegistrationStatus());
     };
   }, [dispatch, id]);
 
@@ -97,8 +112,13 @@ function EventDetails() {
       navigate('/login', { state: { from: { pathname: `/events/${id}` } } });
       return;
     }
-    // Will connect to registrationSlice in Milestone 11
-    alert('Registration handling will be completed in Milestone 11.');
+
+    dispatch(
+      registerForEvent({
+        user: currentUser,
+        event: event,
+      })
+    );
   };
 
   return (
@@ -175,6 +195,10 @@ function EventDetails() {
           <aside className="event-details-sidebar">
             <div className="sidebar-box">
               <h3>Event Registration</h3>
+
+              {regError && <div className="alert alert-danger">{regError}</div>}
+              {successMessage && <div className="alert alert-success">{successMessage}</div>}
+
               <div className="sidebar-stat">
                 <span>Status</span>
                 <span className={`status-pill status-${status}`}>
@@ -186,13 +210,24 @@ function EventDetails() {
                 <strong>{priceDisplay}</strong>
               </div>
 
-              <button
-                onClick={handleRegisterClick}
-                className="btn btn-primary btn-block"
-                style={{ marginTop: '1.25rem' }}
-              >
-                Register for Event
-              </button>
+              {isAlreadyRegistered ? (
+                <div style={{ marginTop: '1.25rem' }}>
+                  <button className="btn btn-secondary btn-block" disabled>
+                    Registered
+                  </button>
+                  <p className="sidebar-hint" style={{ marginTop: '0.5rem' }}>
+                    View in <Link to="/my-events">My Events</Link>
+                  </p>
+                </div>
+              ) : (
+                <button
+                  onClick={handleRegisterClick}
+                  className="btn btn-primary btn-block"
+                  style={{ marginTop: '1.25rem' }}
+                >
+                  Register for Event
+                </button>
+              )}
 
               {!isAuthenticated && (
                 <p className="sidebar-hint">
